@@ -3,17 +3,18 @@ package br.com.gdevs.forum_Hub.domain.topico;
 import br.com.gdevs.forum_Hub.domain.curso.Curso;
 import br.com.gdevs.forum_Hub.domain.resposta.Resposta;
 import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
+import br.com.gdevs.forum_Hub.infra.exception.ValidacaoException;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -27,22 +28,54 @@ public class Topico {
 
     private String titulo;
     private String mensagem;
-    private LocalDateTime data;
-    @Enumerated
+    private OffsetDateTime data;
+    @Enumerated(EnumType.STRING)
     private Status status;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="curso_id")
     private Curso curso;
+
     @OneToMany(mappedBy = "topico")
     private List<Resposta> respostas;
 
 
+    public Topico (Usuario usuario, Curso curso, DadosCadastroTopico dados){
+
+        this.titulo = dados.titulo();
+        this.mensagem = dados.mensagem();
+        this.data =  LocalDateTime.now().atOffset(ZoneOffset.of("-03:00"));
+        this.status = dados.status();
+        this.usuario = usuario;
+        this.curso = curso;
+
+    }
 
 
+    public void atualizar(DadosAtualizacaoTopico dados) {
 
+        if(!this.usuario.getId().equals(dados.usuario_id()) && !dados.senha().equals(this.usuario.getSenha())){
+            throw new ValidacaoException("Não é possível alterar tópicos que não são seus!");
+        }
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
 
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+
+        if (dados.curso_id() != null) {
+            this.curso.setId(dados.curso_id());
+        }
+
+        if (dados.status() != null) {
+            this.status = dados.status();
+        }
+    }
 
 }

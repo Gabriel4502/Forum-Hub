@@ -1,11 +1,12 @@
 package br.com.gdevs.forum_Hub.domain.usuario;
 
+import br.com.gdevs.forum_Hub.domain.resposta.Resposta;
 import br.com.gdevs.forum_Hub.domain.topico.Topico;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Setter
 public class Usuario implements UserDetails {
 
     @Id
@@ -32,8 +35,12 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
 
-    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Topico> topicos;
+//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+//    private List<Topico> topicos = new ArrayList<>();
+
+    @Setter
+    @OneToMany(mappedBy = "usuario")
+    List<Resposta> respostas;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -80,4 +87,5 @@ public class Usuario implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

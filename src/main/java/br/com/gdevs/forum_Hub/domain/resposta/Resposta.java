@@ -4,15 +4,13 @@ package br.com.gdevs.forum_Hub.domain.resposta;
 import br.com.gdevs.forum_Hub.domain.topico.Topico;
 import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,12 +23,24 @@ public class Resposta {
     private Long id;
 
     private String mensagem;
-    @OneToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topico_id")
     private Topico topico;
+
     private LocalDateTime data;
+
     @JoinColumn(name = "usuario_id")
-    @OneToOne
-    private Usuario autor;
+    @ManyToOne
+    private Usuario usuario;
+
+    public Resposta(Topico topico, Usuario usuario, DadosCriacaoResposta dados){
+        this.mensagem = dados.mensagem();
+        this.topico = topico;
+        this.data = dados.data();
+        this.usuario = usuario;
+
+    }
+
 
 }
