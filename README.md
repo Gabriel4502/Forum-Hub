@@ -40,6 +40,8 @@ realiza valicação de regras de negócio, salva ou retorna informações no ban
 - `Excluir usuarios`
 - `Excluir respostas`
 
+# ❕: Regras de negócio
+
 - Apenas usuarios logados podem inserir tópicos
 - Respostas podem ser deletadas apenas  pelos criadores das respostas, ou pelos criadores dos tópicos
 - Apenas usuários logados podem ver tópicos
