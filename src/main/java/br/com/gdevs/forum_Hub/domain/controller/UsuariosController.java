@@ -1,15 +1,11 @@
 package br.com.gdevs.forum_Hub.domain.controller;
 
-import br.com.gdevs.forum_Hub.domain.usuario.DadosDetalhamentoUsuario;
-import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
-import br.com.gdevs.forum_Hub.domain.usuario.UsuarioRepository;
+import br.com.gdevs.forum_Hub.domain.usuario.*;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +17,9 @@ public class UsuariosController {
     @Autowired
     UsuarioRepository repository;
 
+    @Autowired
+    GerenciadorDeUsuarios userGen;
+
     @GetMapping
     public ResponseEntity listarUsuarios(){
         List<DadosDetalhamentoUsuario> usuarios = repository.findAll()
@@ -30,9 +29,10 @@ public class UsuariosController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("{id}")
     @Transactional
-    public ResponseEntity excluirUsuario(){
+    public ResponseEntity excluirUsuario(@PathVariable Long id, @RequestBody @Valid DadosExclusaoUsuario dados){
+        userGen.excluir(id, dados);
         return ResponseEntity.noContent().build();
     }
 

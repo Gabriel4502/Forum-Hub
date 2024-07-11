@@ -33,7 +33,7 @@ public class Resposta {
 
     private OffsetDateTime data;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 

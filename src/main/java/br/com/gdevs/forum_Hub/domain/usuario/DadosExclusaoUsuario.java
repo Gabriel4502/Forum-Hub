@@ -5,5 +5,5 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 
-public record DadosExclusaoUsuario(@NotBlank String email, @NotBlank @Email String senha) {
+public record DadosExclusaoUsuario(@NotBlank @Email String email, @NotBlank String senha) {
 }
