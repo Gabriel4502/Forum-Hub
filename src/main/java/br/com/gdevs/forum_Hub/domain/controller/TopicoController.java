@@ -21,7 +21,7 @@ public class TopicoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity criarTopico(@RequestBody @Valid DadosCadastroTopico dados){
 
         var topico = topicosGerenciador.criarTopico(dados);
 
@@ -46,7 +46,7 @@ public class TopicoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id, @RequestBody  @Valid DadosExclusaoTopico dados){
-        topicosGerenciador.excluir(dados.id(), dados.email(), dados.senha());
+        topicosGerenciador.excluir(dados.topicoId(), dados.email(), dados.senha());
         return ResponseEntity.noContent().build();
     }
 

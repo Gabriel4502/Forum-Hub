@@ -12,9 +12,6 @@ public record DadosCriacaoResposta(
         @NotNull
         Long topico_id,
         @NotNull
-        LocalDateTime data,
-        @NotNull
-        Long usuario_id,
-        String solucao
+        Long usuario_id
         ) {
 }

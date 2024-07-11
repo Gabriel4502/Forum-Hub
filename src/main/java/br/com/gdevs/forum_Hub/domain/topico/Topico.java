@@ -4,12 +4,14 @@ import br.com.gdevs.forum_Hub.domain.curso.Curso;
 import br.com.gdevs.forum_Hub.domain.resposta.Resposta;
 import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
 import br.com.gdevs.forum_Hub.infra.exception.ValidacaoException;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -40,7 +42,8 @@ public class Topico {
     @JoinColumn(name="curso_id")
     private Curso curso;
 
-    @OneToMany(mappedBy = "topico")
+    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Resposta> respostas;
 
 
@@ -54,7 +57,6 @@ public class Topico {
         this.curso = curso;
 
     }
-
 
     public void atualizar(DadosAtualizacaoTopico dados) {
 

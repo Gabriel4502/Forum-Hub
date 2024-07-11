@@ -3,10 +3,13 @@ package br.com.gdevs.forum_Hub.domain.resposta;
 
 import br.com.gdevs.forum_Hub.domain.topico.Topico;
 import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 
 @Getter
@@ -24,20 +27,20 @@ public class Resposta {
 
     private String mensagem;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "topico_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     private Topico topico;
 
-    private LocalDateTime data;
+    private OffsetDateTime data;
 
+    @OneToOne
     @JoinColumn(name = "usuario_id")
-    @ManyToOne
     private Usuario usuario;
 
     public Resposta(Topico topico, Usuario usuario, DadosCriacaoResposta dados){
         this.mensagem = dados.mensagem();
         this.topico = topico;
-        this.data = dados.data();
+        this.data = LocalDateTime.now().atOffset(ZoneOffset.of("-03:00"));
         this.usuario = usuario;
 
     }

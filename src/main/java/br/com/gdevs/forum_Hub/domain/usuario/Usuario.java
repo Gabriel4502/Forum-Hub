@@ -38,9 +38,9 @@ public class Usuario implements UserDetails {
 //    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 //    private List<Topico> topicos = new ArrayList<>();
 
-    @Setter
-    @OneToMany(mappedBy = "usuario")
-    List<Resposta> respostas;
+//    @Setter
+//    @OneToMany(mappedBy = "usuario")
+//    List<Resposta> respostas;
 
     @Bean
     public PasswordEncoder passwordEncoder(){

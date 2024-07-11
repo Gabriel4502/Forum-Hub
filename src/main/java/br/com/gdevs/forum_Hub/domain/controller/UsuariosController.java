@@ -3,8 +3,10 @@ package br.com.gdevs.forum_Hub.domain.controller;
 import br.com.gdevs.forum_Hub.domain.usuario.DadosDetalhamentoUsuario;
 import br.com.gdevs.forum_Hub.domain.usuario.Usuario;
 import br.com.gdevs.forum_Hub.domain.usuario.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +28,12 @@ public class UsuariosController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(usuarios);
+    }
+
+    @DeleteMapping("/usuarios/{id}")
+    @Transactional
+    public ResponseEntity excluirUsuario(){
+        return ResponseEntity.noContent().build();
     }
 
 
