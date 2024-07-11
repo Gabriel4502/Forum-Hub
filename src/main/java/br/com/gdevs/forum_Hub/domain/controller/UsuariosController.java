@@ -22,8 +22,8 @@ public class UsuariosController {
 
     @GetMapping
     public ResponseEntity listarUsuarios(){
-        List<DadosDetalhamentoUsuario> usuarios = repository.findAll()
-                .stream().map(user -> new DadosDetalhamentoUsuario(user))
+        List<DadosDetalhamentoUsuario> usuarios = repository.findAllByAtivoTrue()
+                .stream().map(DadosDetalhamentoUsuario::new)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(usuarios);

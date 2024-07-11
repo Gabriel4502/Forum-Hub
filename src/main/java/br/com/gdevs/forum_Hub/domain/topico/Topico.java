@@ -42,7 +42,7 @@ public class Topico {
     @JoinColumn(name="curso_id")
     private Curso curso;
 
-    @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "topico", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Resposta> respostas = new ArrayList<>();
 

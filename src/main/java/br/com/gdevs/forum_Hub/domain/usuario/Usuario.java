@@ -34,10 +34,11 @@ public class Usuario implements UserDetails {
     private String nome;
     private String email;
     private String senha;
+    private boolean ativo;
 
 
     @Setter
-    @OneToMany(mappedBy = "usuario",  cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario")
     List<Resposta> respostas;
 
     @Bean
@@ -49,6 +50,7 @@ public class Usuario implements UserDetails {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = passwordEncoder().encode(dados.senha());
+        this.ativo= true;
     }
 
     @Override
@@ -84,6 +86,10 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void excluir(){
+        this.ativo = false;
     }
 
 }

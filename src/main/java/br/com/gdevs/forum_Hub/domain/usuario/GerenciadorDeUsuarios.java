@@ -25,7 +25,7 @@ public class GerenciadorDeUsuarios {
             throw new ValidacaoException("Não é possível excluir o usuário de outras pessoas!");
         }
 
-        repository.delete(usuario.get());
+        usuario.get().excluir();
 
     }
 

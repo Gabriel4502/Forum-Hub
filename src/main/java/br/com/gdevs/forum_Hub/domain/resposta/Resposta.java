@@ -27,13 +27,13 @@ public class Resposta {
 
     private String mensagem;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Topico topico;
 
     private OffsetDateTime data;
 
-    @OneToOne( cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
