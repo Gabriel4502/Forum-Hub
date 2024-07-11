@@ -45,7 +45,7 @@ public class GerenciadorDeRespostas {
         if(resposta.isEmpty()){
             throw new ValidacaoException("Esta resposta não pôde ser deletada, pois não existe!");
         }
-        if(!resposta.get().getUsuario().getId().equals(dados.usuario_id()) && !resposta.get().getTopico().getUsuario().getId().equals(dados.usuario_id())){
+        if(!resposta.get().getUsuario().getEmail().equals(dados.email()) && !resposta.get().getTopico().getUsuario().getEmail().equals(dados.senha())){
             throw new ValidacaoException("Você só pode excluir respostas de sua autoria, a menos que seja o criador do tópico.");
         }
 

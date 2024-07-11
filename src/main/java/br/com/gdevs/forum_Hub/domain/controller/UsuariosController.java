@@ -29,7 +29,7 @@ public class UsuariosController {
         return ResponseEntity.ok(usuarios);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluirUsuario(@PathVariable Long id, @RequestBody @Valid DadosExclusaoUsuario dados){
         userGen.excluir(id, dados);

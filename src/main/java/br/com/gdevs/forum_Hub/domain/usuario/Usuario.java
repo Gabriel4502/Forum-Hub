@@ -35,8 +35,6 @@ public class Usuario implements UserDetails {
     private String email;
     private String senha;
 
-//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-//    private List<Topico> topicos = new ArrayList<>();
 
     @Setter
     @OneToMany(mappedBy = "usuario",  cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

@@ -46,14 +46,14 @@ public class TopicoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id, @RequestBody  @Valid DadosExclusaoTopico dados){
-        topicosGerenciador.excluir(dados.topicoId(), dados.email(), dados.senha());
+        topicosGerenciador.excluir(dados, id);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizarTopico(@RequestBody @Valid DadosAtualizacaoTopico dados){
-        var topico = repository.getReferenceById(dados.id());
+    public ResponseEntity atualizarTopico(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoTopico dados){
+        var topico = repository.getReferenceById(id);
         topico.atualizar(dados);
 
        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));

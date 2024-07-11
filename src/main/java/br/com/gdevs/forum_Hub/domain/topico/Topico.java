@@ -44,7 +44,7 @@ public class Topico {
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private List<Resposta> respostas;
+    private List<Resposta> respostas = new ArrayList<>();
 
 
     public Topico (Usuario usuario, Curso curso, DadosCadastroTopico dados){

@@ -39,14 +39,14 @@ public class GerenciadorDeTopicos {
         return new DadosDetalhamentoTopico(topico);
     }
 
-    public String excluir(Long topicoId, String email, String senha){
+    public String excluir(DadosExclusaoTopico dados, Long id){
 
-        Optional<Topico> topico = topicoRepo.findById(topicoId);
+        Optional<Topico> topico = topicoRepo.findById(id);
 
         if(topico.isEmpty()){
             throw new ValidacaoException("Nenhum tópico encontrado com o id informado.");
         }
-        if(!topico.get().getUsuario().getEmail().equals(email) && !topico.get().getUsuario().getEmail().equals(senha) ){
+        if(!(topico.get().getUsuario().getEmail().equals(dados.email())) && !topico.get().getUsuario().getSenha().equals(dados.senha())) {
             throw new ValidacaoException("Não é possível excluir tópicos que não são seus!");
         }else{
             topicoRepo.delete(topico.get());

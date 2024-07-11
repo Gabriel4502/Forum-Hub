@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosExclusaoResposta (
-        @NotNull
-        Long usuario_id,
         @NotBlank
         String email,
         @NotBlank
