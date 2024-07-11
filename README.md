@@ -6,7 +6,7 @@
 ![Static Badge](https://img.shields.io/badge/Maven-central)
 ![Static Badge](https://img.shields.io/badge/java-8)
 ![Static Badge](https://img.shields.io/badge/Spring_Data-Jpa-red)
-![Static Badge](https://img.shields.io/badge/postgres-sql)
+![Static Badge](https://img.shields.io/badge/Mysql-0)
 
 
 
@@ -55,7 +55,8 @@ realiza valicação de regras de negócio, salva ou retorna informações no ban
 - `Java 17`
 - `Spring Data`
 - `Jpql`
-- `Postgres`
+- `Spring Boot`
+- `Mysql`
 - `Paradigma de orientação a objetos`
 - `Java Streams`
 
