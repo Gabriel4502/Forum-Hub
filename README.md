@@ -26,9 +26,6 @@ realiza valicação de regras de negócio, salva ou retorna informações no ban
 
 # :hammer: Funcionalidades do projeto
 
-- `Buscar livro da api`: Busca livro da api e insere no banco de dados Postgres
-
-
 - `Cadastrar usuarios no sistema`
 - `Listar usuarios registrados`
 - `Inserir tópicos`
